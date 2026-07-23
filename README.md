@@ -1,7 +1,7 @@
 # GIWA Builder Passport
 
 Soulbound, on-chain builder identity for the GIWA ecosystem — a GASOK Builder
-Program submission.
+Program submission..
 
 - `app/` — Vite + React + TypeScript + Tailwind + Wagmi + Viem + RainbowKit
 - `contracts/` — Hardhat 3, targeting GIWA Sepolia (chain ID 91342)
