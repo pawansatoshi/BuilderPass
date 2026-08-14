@@ -8,6 +8,7 @@ BuilderPass connects **identity → skills → projects → proofs** into an eco
 
 [![GIWA Sepolia](https://img.shields.io/badge/GIWA-Sepolia-111827?style=for-the-badge)](https://sepolia-explorer.giwa.io/)
 [![Smart Contract](https://img.shields.io/badge/Smart%20Contract-Public-6d28d9?style=for-the-badge)](https://sepolia-explorer.giwa.io/address/0x36Dae8dCFf051f301D5e02a37d203b9f7DB93142)
+[![CI](https://github.com/pawansatoshi/BuilderPass/actions/workflows/ci.yml/badge.svg)](https://github.com/pawansatoshi/BuilderPass/actions/workflows/ci.yml)
 [![YouTube](https://img.shields.io/badge/YouTube-Pawan%20Satoshi-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@PawanSatoshi)
 
 ## 🎥 Product Demo
@@ -20,7 +21,7 @@ BuilderPass connects **identity → skills → projects → proofs** into an eco
 
 **▶ [Watch the full BuilderPass demo on YouTube](https://www.youtube.com/watch?v=1FeeqEIcfU4)**
 
-> GitHub does not reliably render external YouTube `<iframe>` players inside README files. The thumbnail above is therefore the reliable GitHub-native approach: tap/click it to open the video and play it on YouTube. YouTube documents external embedding separately for websites. 
+> GitHub does not reliably render external YouTube `<iframe>` players inside README files. The thumbnail above is therefore the reliable GitHub-native approach: tap/click it to open the video and play it on YouTube.
 
 ## Why this matters
 
@@ -55,6 +56,7 @@ Ecosystems, applications and agents
 - **Builder portfolio layer** — projects can be presented as evidence without converting them into an arbitrary score.
 - **Evaluator-first UX** — the landing page explains the problem, primitive and verification model before asking the user to mint.
 - **Mobile-friendly interface** — responsive UI, transaction status, copy actions and explicit receipts.
+- **Automated engineering checks** — GitHub Actions compiles the contract, runs contract tests, lints the frontend and builds the application.
 
 ## 🔐 Smart Contract & On-chain Proof
 
@@ -126,7 +128,7 @@ Future attestations can build on this foundation without changing the identity p
 
 ## Why BuilderPass fits GIWA
 
-GASOK is explicitly focused on concrete products, public smart-contract links, accessible MVPs and technical detail. GIWA has also emphasized native builders and applications that make Web3 easier to approach. citeturn1search1turn1search4
+GASOK asks builders to demonstrate concrete product progress, an MVP/demo or accessible website, a public smart-contract link and technical detail. The program has also highlighted native understanding of the GIWA ecosystem and accessible Web3 experiences as important signals.
 
 BuilderPass is designed around those principles:
 
@@ -182,16 +184,17 @@ This keeps the project focused on builder identity while making it extensible to
 | UX | Mobile-first, wallet guards, receipts, copy/share actions |
 | Ecosystem utility | Portable builder identity primitive |
 | Extensibility | Credentials → reputation → builder graph → agents |
+| Engineering quality | Automated compile, test, lint and build checks |
 | Demo | Linked product walkthrough |
 
 ## Development
 
 ```bash
-cd app
-npm install
+npm ci
+npm run contracts:compile
+npm run contracts:test
+npm run lint --workspace=app
 npm run build
-npm run lint
-npm run dev
 ```
 
 The repository is designed to work with GitHub Codespaces and can be deployed to Vercel using the included root configuration.
@@ -205,6 +208,7 @@ See:
 - `CLAUDE.md` — project memory and implementation notes.
 - `app/src/components/BuilderProof.tsx` — evaluator-friendly verification layer.
 - `app/src/components/BuilderPortfolio.tsx` — evidence/portfolio presentation.
+- `.github/workflows/ci.yml` — automated engineering checks.
 
 ## Status
 
