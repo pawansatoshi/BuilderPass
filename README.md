@@ -21,19 +21,29 @@ BuilderPass connects **identity → skills → projects → proofs** into an eco
 
 **▶ [Watch the full BuilderPass demo on YouTube](https://www.youtube.com/watch?v=1FeeqEIcfU4)**
 
-> GitHub does not reliably render external YouTube `<iframe>` players inside README files. The thumbnail above is therefore the reliable GitHub-native approach: tap/click it to open the video and play it on YouTube.
+> GitHub README pages do not reliably render external YouTube iframe players. The thumbnail above is the reliable GitHub-native experience; the live application includes an in-page playable YouTube walkthrough.
 
-## ✨ Interactive product experience
+## Product experience
 
-The live BuilderPass app is designed to communicate the protocol visually, not just through static documentation.
+The live BuilderPass application is designed to communicate the protocol visually, not just through static documentation.
 
 - **Animated architecture flow** — Wallet → Passport → Evidence → Builder Graph → Agents.
-- **Motion-led hero** — subtle ambient movement and staged content entrance create a premium first impression without distracting from the product.
-- **Voice guide** — an optional browser-native narration explains the BuilderPass architecture and verification model. No external audio service or audio file is required.
+- **Interactive demo video** — the YouTube walkthrough can be played directly inside the live product.
+- **Creator link UX** — Pawan Satoshi's YouTube channel is available as a compact branded action beside/over the demo without interrupting playback.
+- **Voice guide** — optional browser-native narration explains the BuilderPass architecture and verification model.
+- **Multilingual UX** — English, Korean and Hindi are available from the global navigation; the language preference persists locally.
+- **Technical Overview** — a normal product route (`/technical`) explains architecture, verification and GIWA ecosystem fit without a special “judge mode”.
+- **Responsive navigation** — Passport, Technical Overview and Developer Resources are accessible on desktop and mobile.
 - **Reduced-motion support** — CSS respects `prefers-reduced-motion` for accessibility.
 - **Proof-first UX** — the visual story leads into the actual smart contract and explorer evidence.
 
-The voice guide is intentionally optional: visitors can understand and use the product normally with sound disabled.
+## Origin & ecosystem
+
+**Built from India 🇮🇳 · Built for GIWA 🇰🇷 · Designed for global builders 🌍**
+
+BuilderPass is an independent builder project and does not claim employment, partnership, endorsement or sponsorship by GIWA, Dunamu or Upbit.
+
+GIWA's official site describes GIWA as a Web3 infrastructure ecosystem powered by/with Upbit-related infrastructure, and GASOK explicitly evaluates GIWA chain fit and potential GIWA Wallet integration. BuilderPass uses that public ecosystem context to design a wallet-ready identity primitive; any future GIWA Wallet or Upbit integration would require official approval. citeturn0search0turn0search2
 
 ## Why this matters
 
@@ -66,9 +76,12 @@ Ecosystems, applications and agents
 - **Explorer evidence** — direct GIWA Sepolia Blockscout links for wallet, contract, transactions and token instance.
 - **Lifecycle metadata** — profile version, mint timestamp and update timestamp are surfaced from contract state.
 - **Builder portfolio layer** — projects can be presented as evidence without converting them into an arbitrary score.
-- **Evaluator-first UX** — the landing page explains the problem, primitive and verification model before asking the user to mint.
+- **Technical Overview** — architecture, design decisions, live proof and ecosystem-fit explanation in one public route.
+- **GIWA ecosystem fit** — explicit explanation of GIWA-native deployment and future wallet-readiness without claiming an integration that does not yet exist.
 - **Interactive architecture storytelling** — animated identity-to-agent flow on the landing page.
+- **Playable product walkthrough** — embedded YouTube demo inside the live application.
 - **Optional voice narration** — browser-native guided explanation for the product story.
+- **Multilingual navigation** — English, Korean and Hindi.
 - **Mobile-friendly interface** — responsive UI, transaction status, copy actions and explicit receipts.
 - **Automated engineering checks** — GitHub Actions compiles the contract, runs contract tests, lints the frontend and builds the application.
 
@@ -142,17 +155,17 @@ Future attestations can build on this foundation without changing the identity p
 
 ## Why BuilderPass fits GIWA
 
-GASOK asks builders to demonstrate concrete product progress, an MVP/demo or accessible website, a public smart-contract link and technical detail. The program has also highlighted native understanding of the GIWA ecosystem and accessible Web3 experiences as important signals.
+GASOK currently lists GIWA chain fit, originality, feasibility, market potential, team capability and potential for GIWA Wallet integration among its selection criteria. Its later productization phase emphasizes UI/UX quality, early user evidence and long-term sustainability. citeturn0search0
 
 BuilderPass is designed around those principles:
 
 1. **GIWA-native deployment** — the identity primitive is deployed directly on GIWA Sepolia.
 2. **Real product, not only a concept** — mint, public profile, edit flow and verification are implemented.
-3. **Public proof** — judges can inspect the contract and deployment transaction independently.
+3. **Public proof** — the contract and deployment transaction are independently inspectable.
 4. **Lower onboarding friction** — a builder can understand the product before connecting a wallet.
 5. **Ecosystem utility** — the passport is designed as a reusable identity primitive rather than a one-off profile page.
-6. **Mainnet-oriented architecture** — the identity contract is isolated from the presentation layer, allowing the ecosystem-facing product to evolve without rebuilding the core identity model.
-7. **Strong demo surface** — animation, optional voice narration and an evidence-first product story make the technical architecture easier to understand quickly.
+6. **Wallet-ready direction** — the architecture can naturally surface a builder identity through future wallet experiences, without claiming that such integration already exists.
+7. **Strong demo surface** — animation, playable walkthrough, optional voice narration and an evidence-first product story make the technical architecture easier to understand quickly.
 
 ## Builder portfolio examples
 
@@ -197,8 +210,10 @@ This keeps the project focused on builder identity while making it extensible to
 | Technical depth | Solidity + React + Wagmi/Viem architecture |
 | Verifiability | On-chain proof trail + transaction links |
 | UX | Mobile-first, wallet guards, receipts, copy/share actions |
-| Interactive demo | Animation + optional voice guide + YouTube walkthrough |
+| Interactive demo | Animation + playable YouTube walkthrough + optional voice guide |
+| Localization | English + Korean + Hindi navigation |
 | Ecosystem utility | Portable builder identity primitive |
+| GIWA fit | GIWA-native deployment + wallet-ready design direction |
 | Extensibility | Credentials → reputation → builder graph → agents |
 | Engineering quality | Automated compile, test, lint and build checks |
 
@@ -222,9 +237,12 @@ See:
 - `ROADMAP.md` — milestone and future direction.
 - `CLAUDE.md` — project memory and implementation notes.
 - `app/src/components/AnimatedBuilderFlow.tsx` — animated identity-to-agent architecture.
+- `app/src/components/DemoShowcase.tsx` — in-app YouTube walkthrough and channel UX.
 - `app/src/components/VoiceGuide.tsx` — optional browser-native product narration.
+- `app/src/components/LanguageSelector.tsx` — English/Korean/Hindi selector.
 - `app/src/components/BuilderProof.tsx` — evaluator-friendly verification layer.
 - `app/src/components/BuilderPortfolio.tsx` — evidence/portfolio presentation.
+- `app/src/pages/TechnicalOverviewPage.tsx` — technical and GIWA ecosystem overview.
 - `.github/workflows/ci.yml` — automated engineering checks.
 
 ## Status
@@ -235,7 +253,9 @@ See:
 
 <div align="center">
 
-**Built by PAWAN UPADHYAY**  
+**Built from India 🇮🇳 · Built for GIWA 🇰🇷 · Designed for global builders 🌍**
+
+**PAWAN UPADHYAY**  
 [@pawansatoshi](https://github.com/pawansatoshi)
 
 [![YouTube](https://img.shields.io/badge/YouTube-Pawan%20Satoshi-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtube.com/@PawanSatoshi)
