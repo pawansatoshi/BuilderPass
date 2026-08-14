@@ -4,10 +4,20 @@ import { useLanguage } from "../lib/i18n";
 const VIDEO_ID = "1FeeqEIcfU4";
 const VIDEO_URL = `https://www.youtube.com/watch?v=${VIDEO_ID}`;
 const CHANNEL_URL = "https://youtube.com/@PawanSatoshi";
+const THUMBNAILS = [
+  `https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`,
+  `https://i.ytimg.com/vi/${VIDEO_ID}/sddefault.jpg`,
+  `https://i.ytimg.com/vi/${VIDEO_ID}/default.jpg`,
+];
 
 export function DemoShowcase() {
   const [playing, setPlaying] = useState(false);
+  const [thumbnailIndex, setThumbnailIndex] = useState(0);
   const { t } = useLanguage();
+
+  const handleThumbnailError = () => {
+    setThumbnailIndex((current) => Math.min(current + 1, THUMBNAILS.length - 1));
+  };
 
   return (
     <section className="space-y-4">
@@ -35,7 +45,15 @@ export function DemoShowcase() {
             />
           ) : (
             <button type="button" onClick={() => setPlaying(true)} className="absolute inset-0 h-full w-full text-left" aria-label="Play BuilderPass demo video">
-              <img src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`} alt="GIWA Builder Passport demo" className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100" />
+              <img
+                src={THUMBNAILS[thumbnailIndex]}
+                onError={handleThumbnailError}
+                alt="GIWA Builder Passport demo"
+                loading="eager"
+                fetchPriority="high"
+                referrerPolicy="no-referrer"
+                className="h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+              />
               <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/20" aria-hidden="true" />
               <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-ink shadow-2xl transition duration-200 group-hover:scale-110">
                 <span className="ml-1 text-xl" aria-hidden="true">▶</span>
