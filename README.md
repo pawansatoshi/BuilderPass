@@ -1,196 +1,136 @@
 # GIWA Builder Passport
 
-Soulbound, on-chain builder identity for the GIWA ecosystem — a GASOK Builder
-Program submission..
+> A portable, verifiable on-chain identity primitive for builders.
 
-- `app/` — Vite + React + TypeScript + Tailwind + Wagmi + Viem + RainbowKit
-- `contracts/` — Hardhat 3, targeting GIWA Sepolia (chain ID 91342)
+**GIWA Sepolia · GASOK Builder Program submission**
 
-See `ARCHITECTURE.md` for design decisions, `ROADMAP.md` for milestone status,
-and `CLAUDE.md` for running project memory.
+BuilderPass connects **identity → skills → projects → proofs** into an ecosystem-readable builder profile. The core identity is soulbound and anchored on-chain; the product deliberately avoids inventing a subjective reputation score.
 
-**Status:** MVP complete — `BuilderPassport.sol` implemented, tested, and
-deployed to GIWA Sepolia; the full frontend (mint, public profile, edit) is
-built and wired to the real deployed contract and ABI. This project is
-packaged to be uploaded directly to a GitHub repo and developed entirely
-through **GitHub Codespaces** — no local machine required. Codespaces is only
-needed for `npm install`, running tests, and any minor fixes before deploying
-to Vercel — everything else is already built.
+## Why this matters
 
-## What's built
+Builder identity is fragmented across wallets, GitHub, social profiles and ecosystem programs. BuilderPass creates a portable identity layer where core builder metadata can be verified directly from the blockchain.
 
-- **Mint** (`/mint`) — profile form (name, bio, up to 5 skill tags, GitHub, X,
-  website), instant client-side validation matching the contract's limits,
-  full transaction status (wallet confirmation → mining → success/error),
-  redirects to the new public profile once minted.
-- **Public profile** (`/profile/:address`) — reads any wallet's passport, no
-  wallet needed to view. Renders the passport as a styled card with its one
-  signature design touch: a corner "GIWA · Sepolia · Verified" stamp seal,
-  plus a full metadata grid (Passport ID, Network, Profile Version, Skills
-  Count, Mint Date, Last Updated, Owner/Contract addresses with copy) and
-  quick links to the official Blockscout explorer (wallet, contract,
-  transactions, NFT instance).
-- **Edit** (`/edit`) — owner-only, prefilled from the wallet's existing
-  on-chain data, saves via `updateProfile()`.
-- **Developer Resources** (`/resources`) — official GIWA links (docs,
-  Playground, explorer, faucet, GASOK program, GitHub, chain ID/RPC/contract
-  address with copy buttons) kept visually separate from community links
-  (Nodit Faucet, Faucet.Trade) — every link verified directly against
-  docs.giwa.io during a full documentation audit, not carried over from
-  memory.
-- Mint and edit both end in a rich transaction receipt (hash, block number,
-  timestamp, gas used, explorer link, copy actions, share) with an explicit
-  "Continue" button — not an automatic redirect — so there's time to
-  actually read it.
-- Every copy action (tx hash, addresses, chain ID, RPC URL) shows both
-  inline "Copied ✓" text and a toast notification — the toast matters most
-  on mobile, where an inline label change is easy to miss.
-- A static "GIWA Sepolia" network badge sits in the header; loading states
-  use a skeleton matching the passport card's exact shape instead of plain
-  text; invalid profile addresses and unmatched routes get a friendly 404
-  page instead of a bare error line.
-- All pages are guarded appropriately (wallet-connect prompts, already-
-  minted / not-yet-minted redirects) and share one transaction-status
-  component and one client-side validation module.
+### The model
 
----
-
-## Working from mobile: GitHub Codespaces workflow
-
-This whole project — including installing dependencies, running the dev
-server, and deploying — can be done from a phone/tablet browser using GitHub
-Codespaces and the Vercel dashboard. No desktop/laptop needed.
-
-### 1. Create a GitHub repository
-
-- In the GitHub app or mobile browser, create a new **empty** repository
-  (don't initialize it with a README, to keep the upload simple).
-
-### 2. Open a Codespace on it
-
-- On the repo page: **Code → Codespaces → Create codespace on main**.
-- This opens a full VS Code environment in your browser. On a phone, tapping
-  "request desktop site" in your mobile browser makes this much easier to
-  use, but it works either way.
-
-### 3. Upload this ZIP into the Codespace
-
-- In the Codespace's file **Explorer** panel, tap the **"..."** menu →
-  **Upload...**, and select this ZIP file.
-- Open the integrated **Terminal** (there's a terminal icon, or use the
-  Explorer's "..." menu) and run:
-
-```bash
-unzip giwa-builder-passport*.zip
-
-# Flatten so the repo root IS the project root (includes dotfiles like
-# .gitignore and .devcontainer):
-shopt -s dotglob
-mv giwa-builder-passport/* .
-rmdir giwa-builder-passport
-rm -f giwa-builder-passport*.zip
+```text
+Wallet
+  ↓
+Soulbound Builder Passport
+  ↓
+Skills + Profile Metadata
+  ↓
+Project / Contribution Evidence
+  ↓
+Verifiable Builder Graph
+  ↓
+Ecosystems, applications and agents
 ```
 
-### 4. Rebuild the container (picks up `.devcontainer/devcontainer.json`)
+## What is implemented
 
-- Since the devcontainer config just arrived via upload rather than being
-  present when the Codespace was created, run the command palette
-  (**Cmd/Ctrl+Shift+P**, or the "..." menu) → **"Codespaces: Rebuild
-  Container"**. This isn't strictly required — you can just run
-  `npm install` yourself instead — but rebuilding gets you the recommended
-  VS Code extensions (ESLint, Tailwind, Solidity) and port-forwarding preset
-  automatically.
+- **Soulbound on-chain identity** — `BuilderPassport.sol` is non-transferable.
+- **Mint** — builder name, bio, up to five skills, GitHub, X and website.
+- **Public profile** — anyone can inspect a passport without connecting a wallet.
+- **Owner-only editing** — profile updates are restricted to the passport owner.
+- **On-chain verification layer** — wallet, passport ID, contract and network are presented as a clear proof trail.
+- **Explorer evidence** — direct GIWA Sepolia Blockscout links for wallet, contract, transactions and token instance.
+- **Lifecycle metadata** — profile version, mint timestamp and update timestamp are surfaced from contract state.
+- **Builder portfolio layer** — projects can be presented as evidence without converting them into an arbitrary score.
+- **Evaluator-first UX** — the landing page explains the problem, primitive and verification model before asking the user to mint.
+- **Mobile-friendly interface** — responsive UI, transaction status, copy actions and explicit receipts.
 
-### 5. Install dependencies and commit
+## Verification
+
+**Network:** GIWA Sepolia  
+**Chain ID:** `91342`  
+**Contract:** `BuilderPassport`  
+**Contract address:** `0x36Dae8dCFf051f301D5e02a37d203b9f7DB93142`  
+**Deployment transaction:** `0xd259a13743cbc2a4935f58a58a153a65711357025a9232c5f48f3706cdd96142`
+
+The contract was deployed manually through Remix with Solidity `0.8.30` and tested live for minting, profile reads, profile updates and soulbound transfer rejection. Source verification on the GIWA Blockscout explorer remains a separate deployment-verification step.
+
+## Product architecture
+
+```text
+app/
+├── React + TypeScript + Vite
+├── Wagmi + Viem
+├── RainbowKit wallet connection
+├── React Router
+└── Tailwind CSS
+
+contracts/
+└── BuilderPassport.sol
+```
+
+The frontend reads the real deployed ABI and contract address. No centralized database or custom identity indexer is required for the core passport flow.
+
+## Product philosophy
+
+### Evidence before reputation
+
+BuilderPass intentionally does **not** manufacture a reputation number. A number can be gamed and is difficult to interpret across ecosystems.
+
+Instead, the primitive is designed around verifiable evidence:
+
+- who controls the wallet
+- what passport exists on-chain
+- what skills the builder declared
+- which project or contribution evidence is linked
+- when the profile was minted or updated
+- where the underlying transaction can be independently verified
+
+Future attestations can build on this foundation without changing the identity primitive.
+
+## Future direction
+
+The next logical layer is a **builder graph**:
+
+1. **Identity** — portable wallet-bound builder identity.
+2. **Credentials** — attestations for skills, programs and capabilities.
+3. **Reputation** — evidence-weighted signals rather than a single opaque score.
+4. **Builder Graph** — machine-readable relationships between builders, projects and contributions.
+5. **Agent-readable identity** — autonomous agents and applications can consume verifiable builder evidence when selecting collaborators or capabilities.
+
+This keeps the project focused on builder identity while making it extensible toward the emerging agentic economy.
+
+## Builder portfolio examples
+
+The current profile presentation can connect to real builder evidence such as:
+
+- **ARCTIS** — AI, programmable money and economic-agent architecture.
+- **Veridex** — evidence-first on-chain intelligence / Telegraph work.
+- **FactAnchor** — web-grounded Intelligent Contract and validator consensus.
+- **GIWA Builder Passport** — this identity primitive.
+
+These links are evidence references, not claims of employment, partnership or official endorsement.
+
+## Development
 
 ```bash
+cd app
 npm install
-git add -A
-git commit -m "GIWA Builder Passport — full MVP (contract, tests, mint/profile/edit UI)"
-git push
-```
-
-### 6. Run the dev server (optional, to preview in-browser)
-
-```bash
+npm run build
+npm run lint
 npm run dev
 ```
-Codespaces will forward port 5173 and offer an in-browser preview — this is
-the actual running app, viewable right there on your phone.
 
-### 7. Environment variables (already configured — optional to change)
+The repository is designed to work with GitHub Codespaces and can be deployed to Vercel using the included root configuration.
 
-`app/.env` and `app/.env.example` already ship with a real, working
-WalletConnect/Reown project ID
-(`VITE_WALLETCONNECT_PROJECT_ID=a0031066837361c93d02ae2f139acc98`) — this is
-a public client identifier, not a secret, so it's safe to commit and use as
-shipped. It's also baked in as a default directly in
-`app/src/lib/wagmi.ts`, so the app works even without any `.env` file at all.
+## Repository structure
 
-Only touch this if you want to switch to a *different* WalletConnect
-project — get one at [cloud.reown.com](https://cloud.reown.com) and set
-`VITE_WALLETCONNECT_PROJECT_ID` in `app/.env` (Codespaces) or in Vercel's
-project environment variables (it overrides the baked-in default either
-way).
+See:
 
-`VITE_BUILDER_PASSPORT_ADDRESS` is optional — only set it if you want to
-override the deployed default already baked into `app/src/lib/contract.ts`.
+- `ARCHITECTURE.md` — design decisions and system model.
+- `ROADMAP.md` — milestone and future direction.
+- `CLAUDE.md` — project memory and implementation notes.
+- `app/src/components/BuilderProof.tsx` — evaluator-friendly verification layer.
+- `app/src/components/BuilderPortfolio.tsx` — evidence/portfolio presentation.
 
-### 8. Deploy to Vercel
+## Status
 
-- Go to [vercel.com](https://vercel.com) in your mobile browser, sign in with
-  GitHub, **Add New... → Project**, and import this repository.
-- A root-level `vercel.json` is already included, so Vercel should
-  auto-detect the build settings (installs at the repo root, builds the
-  `app` workspace, serves `app/dist`) without you needing to change any
-  project settings.
-- No environment variables are required for a first deploy — the
-  WalletConnect project ID and contract address both have working defaults
-  baked in. Only add `VITE_WALLETCONNECT_PROJECT_ID` and/or
-  `VITE_BUILDER_PASSPORT_ADDRESS` in Vercel's project settings
-  (**Settings → Environment Variables**) if you want to override either.
-
-If Vercel ever doesn't pick up `vercel.json` for some reason, the fallback is
-to set **Root Directory** to `app` in the Vercel project's settings — Vercel
-will then auto-detect it as a plain Vite app.
+**MVP complete and deployed to GIWA Sepolia.** The current iteration focuses on making the submitted product easier to understand, independently verify and extend without changing the core identity contract.
 
 ---
 
-## Contracts workspace (for reference — no local run required unless you want to)
-
-```bash
-npm run contracts:compile
-npm run contracts:test          # full Hardhat test suite
-cd contracts && npm run test:coverage   # coverage report
-```
-
-See `contracts/GAS_REPORT.md` for gas-measurement methodology and
-`contracts/contracts/BuilderPassport.design.md` for the full pre-implementation
-design review (UML, storage layout, event flow, state diagram, attack-vector
-table).
-
-## Deployment (Milestone 2)
-
-Deployed manually via **Remix IDE** (Injected Provider) using **Rabby
-Wallet**, compiler Solidity 0.8.30 — not via the Hardhat deploy script in
-`contracts/scripts/deploy.ts`, which remains an unused stub for a future
-scripted redeploy.
-
-- **Network:** GIWA Sepolia (chain ID 91342)
-- **Contract:** `BuilderPassport`
-- **Address:** `0x36Dae8dCFf051f301D5e02a37d203b9f7DB93142`
-- **Deployment tx:** `0xd259a13743cbc2a4935f58a58a153a65711357025a9232c5f48f3706cdd96142`
-- **Manually verified in Remix:** mint, `getPassportByAddress()` read,
-  `updateProfile()`, and `approve()` reverting (soulbound behavior confirmed
-  live on-chain).
-
-This address is wired as the frontend's default contract address (see
-`app/src/lib/contract.ts`), overridable via `VITE_BUILDER_PASSPORT_ADDRESS`.
-The real ABI (exported from Remix) is wired in, and the full mint/profile/edit
-UI (above) is built against it. Source verification on the GIWA Sepolia
-Blockscout explorer is still pending. A later documentation audit found that
-`npx hardhat verify` likely won't work for this specific deployment — it
-defaults to Hardhat's own build profile, which almost certainly won't
-byte-match a Remix-compiled contract. Use Blockscout's own "Verify & Publish"
-UI instead (matching the flow GIWA's official Remix guide documents) — see
-`CLAUDE.md` for the exact steps.
+Built by **PAWAN UPADHYAY (@pawansatoshi)**.
