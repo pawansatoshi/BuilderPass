@@ -2,6 +2,7 @@ import type { Address } from "viem";
 import { BUILDER_PASSPORT_ADDRESS } from "../lib/contract";
 import { formatAddress } from "../lib/format";
 import { CopyButton } from "./ui/CopyButton";
+import { ExplorerLinks } from "./ExplorerLinks";
 
 interface BuilderProofProps {
   owner: Address;
@@ -12,8 +13,6 @@ interface BuilderProofProps {
 
 /** Evaluator-friendly proof trail: wallet → passport contract → on-chain record → explorer. */
 export function BuilderProof({ owner, tokenId, mintedAt, updatedAt }: BuilderProofProps) {
-  const explorerBase = "https://explorer.giwa.io";
-
   return (
     <section className="rounded-md border border-line bg-paper p-5">
       <div className="mb-4">
@@ -66,14 +65,9 @@ export function BuilderProof({ owner, tokenId, mintedAt, updatedAt }: BuilderPro
         </p>
       )}
 
-      <a
-        href={`${explorerBase}/address/${owner}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-4 inline-flex text-sm font-medium text-ink underline decoration-brass/50 underline-offset-4"
-      >
-        Verify wallet activity on the GIWA explorer →
-      </a>
+      <div className="mt-4 border-t border-line pt-4">
+        <ExplorerLinks walletAddress={owner} tokenId={tokenId} />
+      </div>
     </section>
   );
 }
