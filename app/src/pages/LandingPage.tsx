@@ -23,28 +23,18 @@ export function LandingPage() {
             <h1 className="hero-title font-display text-4xl font-semibold text-ink sm:text-6xl">GIWA Builder Passport</h1>
             <div className="mx-auto mt-4 h-px w-24 bg-brass-500/70" />
           </div>
-          <p className="mx-auto max-w-2xl text-base leading-7 text-slate sm:text-lg">
-            A portable, verifiable on-chain identity primitive for builders — connecting identity, skills, projects and contribution proofs into an ecosystem-readable builder profile.
-          </p>
+          <p className="mx-auto max-w-2xl text-base leading-7 text-slate sm:text-lg">A portable, verifiable on-chain identity primitive for builders — connecting identity, skills, projects and contribution proofs into an ecosystem-readable builder profile.</p>
           <VoiceGuide />
           <div className="mx-auto grid max-w-3xl gap-3 text-left sm:grid-cols-3">
-            <div className="hero-card border border-line bg-white p-4">
-              <p className="font-mono text-[10px] uppercase tracking-wide text-brass-700">Problem</p>
-              <p className="mt-2 text-sm text-slate">Builder identity is fragmented across wallets, GitHub, social profiles and programs.</p>
-            </div>
-            <div className="hero-card border border-line bg-white p-4">
-              <p className="font-mono text-[10px] uppercase tracking-wide text-brass-700">Primitive</p>
-              <p className="mt-2 text-sm text-slate">A soulbound passport anchors core builder metadata directly to an on-chain identity.</p>
-            </div>
-            <div className="hero-card border border-line bg-white p-4">
-              <p className="font-mono text-[10px] uppercase tracking-wide text-brass-700">Proof</p>
-              <p className="mt-2 text-sm text-slate">Wallet, contract, passport and transaction evidence can be independently verified.</p>
-            </div>
+            <div className="hero-card border border-line bg-white p-4"><p className="font-mono text-[10px] uppercase tracking-wide text-brass-700">Problem</p><p className="mt-2 text-sm text-slate">Builder identity is fragmented across wallets, GitHub, social profiles and programs.</p></div>
+            <div className="hero-card border border-line bg-white p-4"><p className="font-mono text-[10px] uppercase tracking-wide text-brass-700">Primitive</p><p className="mt-2 text-sm text-slate">A soulbound passport anchors core builder metadata directly to an on-chain identity.</p></div>
+            <div className="hero-card border border-line bg-white p-4"><p className="font-mono text-[10px] uppercase tracking-wide text-brass-700">Proof</p><p className="mt-2 text-sm text-slate">Wallet, contract, passport and transaction evidence can be independently verified.</p></div>
           </div>
-          {totalSupplyQuery.data !== undefined && totalSupplyQuery.data > 0n && (
-            <p className="font-mono text-xs text-slate">{totalSupplyQuery.data.toString()} builder{totalSupplyQuery.data === 1n ? "" : "s"} minted so far</p>
-          )}
-          {!isConnected && <div className="flex justify-center"><ConnectButton /></div>}
+          {totalSupplyQuery.data !== undefined && totalSupplyQuery.data > 0n && <p className="font-mono text-xs text-slate">{totalSupplyQuery.data.toString()} builder{totalSupplyQuery.data === 1n ? "" : "s"} minted so far</p>}
+          <div className="flex flex-wrap justify-center gap-3">
+            {!isConnected && <ConnectButton />}
+            <Link to="/resources"><Button variant="secondary">Explore Developer Resources</Button></Link>
+          </div>
           {isConnected && hasMintedQuery.isLoading && <p className="text-slate">Checking your wallet…</p>}
           {isConnected && hasMintedQuery.data === true && address && <div className="flex justify-center"><Link to={`/profile/${address}`}><Button>View your Builder Passport</Button></Link></div>}
           {isConnected && hasMintedQuery.data === false && <div className="flex justify-center"><Link to="/mint"><Button>Mint your Builder Passport</Button></Link></div>}
