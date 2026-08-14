@@ -23,6 +23,18 @@ BuilderPass connects **identity → skills → projects → proofs** into an eco
 
 > GitHub does not reliably render external YouTube `<iframe>` players inside README files. The thumbnail above is therefore the reliable GitHub-native approach: tap/click it to open the video and play it on YouTube.
 
+## ✨ Interactive product experience
+
+The live BuilderPass app is designed to communicate the protocol visually, not just through static documentation.
+
+- **Animated architecture flow** — Wallet → Passport → Evidence → Builder Graph → Agents.
+- **Motion-led hero** — subtle ambient movement and staged content entrance create a premium first impression without distracting from the product.
+- **Voice guide** — an optional browser-native narration explains the BuilderPass architecture and verification model. No external audio service or audio file is required.
+- **Reduced-motion support** — CSS respects `prefers-reduced-motion` for accessibility.
+- **Proof-first UX** — the visual story leads into the actual smart contract and explorer evidence.
+
+The voice guide is intentionally optional: visitors can understand and use the product normally with sound disabled.
+
 ## Why this matters
 
 Builder identity is fragmented across wallets, GitHub, social profiles and ecosystem programs. BuilderPass creates a portable identity layer where core builder metadata can be verified directly from the blockchain.
@@ -55,6 +67,8 @@ Ecosystems, applications and agents
 - **Lifecycle metadata** — profile version, mint timestamp and update timestamp are surfaced from contract state.
 - **Builder portfolio layer** — projects can be presented as evidence without converting them into an arbitrary score.
 - **Evaluator-first UX** — the landing page explains the problem, primitive and verification model before asking the user to mint.
+- **Interactive architecture storytelling** — animated identity-to-agent flow on the landing page.
+- **Optional voice narration** — browser-native guided explanation for the product story.
 - **Mobile-friendly interface** — responsive UI, transaction status, copy actions and explicit receipts.
 - **Automated engineering checks** — GitHub Actions compiles the contract, runs contract tests, lints the frontend and builds the application.
 
@@ -138,6 +152,7 @@ BuilderPass is designed around those principles:
 4. **Lower onboarding friction** — a builder can understand the product before connecting a wallet.
 5. **Ecosystem utility** — the passport is designed as a reusable identity primitive rather than a one-off profile page.
 6. **Mainnet-oriented architecture** — the identity contract is isolated from the presentation layer, allowing the ecosystem-facing product to evolve without rebuilding the core identity model.
+7. **Strong demo surface** — animation, optional voice narration and an evidence-first product story make the technical architecture easier to understand quickly.
 
 ## Builder portfolio examples
 
@@ -182,10 +197,10 @@ This keeps the project focused on builder identity while making it extensible to
 | Technical depth | Solidity + React + Wagmi/Viem architecture |
 | Verifiability | On-chain proof trail + transaction links |
 | UX | Mobile-first, wallet guards, receipts, copy/share actions |
+| Interactive demo | Animation + optional voice guide + YouTube walkthrough |
 | Ecosystem utility | Portable builder identity primitive |
 | Extensibility | Credentials → reputation → builder graph → agents |
 | Engineering quality | Automated compile, test, lint and build checks |
-| Demo | Linked product walkthrough |
 
 ## Development
 
@@ -206,6 +221,8 @@ See:
 - `ARCHITECTURE.md` — design decisions and system model.
 - `ROADMAP.md` — milestone and future direction.
 - `CLAUDE.md` — project memory and implementation notes.
+- `app/src/components/AnimatedBuilderFlow.tsx` — animated identity-to-agent architecture.
+- `app/src/components/VoiceGuide.tsx` — optional browser-native product narration.
 - `app/src/components/BuilderProof.tsx` — evaluator-friendly verification layer.
 - `app/src/components/BuilderPortfolio.tsx` — evidence/portfolio presentation.
 - `.github/workflows/ci.yml` — automated engineering checks.
